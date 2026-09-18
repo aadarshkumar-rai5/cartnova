@@ -2,7 +2,7 @@
 
 **Modern MERN E-Commerce Platform** — a beginner-friendly, full-stack store built with React, Express, MongoDB and Node.js. Thoughtfully selected essentials, a responsive storefront, and an approachable admin workspace.
 
-**Live Demo:** pending hosting connection and production MongoDB configuration.
+**Vercel URL:** https://cartnova-gilt.vercel.app — deployed; production MongoDB setup is still pending. Catalog, accounts and checkout require the database connection before they can work.
 
 **GitHub Repository:** https://github.com/aadarshkumar-rai5/cartnova
 
