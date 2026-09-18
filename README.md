@@ -2,7 +2,7 @@
 
 **Modern MERN E-Commerce Platform** — a beginner-friendly, full-stack store built with React, Express, MongoDB and Node.js. Thoughtfully selected essentials, a responsive storefront, and an approachable admin workspace.
 
-**Vercel URL:** https://cartnova-gilt.vercel.app — deployed; production MongoDB setup is still pending. Catalog, accounts and checkout require the database connection before they can work.
+**Live Demo:** https://cartnova-gilt.vercel.app
 
 **GitHub Repository:** https://github.com/aadarshkumar-rai5/cartnova
 
@@ -116,7 +116,7 @@ Import [this repository into Vercel](https://vercel.com/new/clone?repository-url
 
 Before deploying, set these **Production** environment variables in Vercel:
 
-- `MONGO_URI`: your persistent MongoDB Atlas connection string, including the database name.
+- `MONGO_URI`: your persistent MongoDB Atlas connection string, including the database name. The app also accepts `MONGODB_URI`, which Vercel's MongoDB Atlas integration supplies automatically.
 - `JWT_SECRET`: a random secret of at least 32 characters.
 - `CLIENT_URL`: the exact production HTTPS origin, such as `https://your-project.vercel.app`, without a trailing slash.
 - `NODE_ENV`: `production`.
