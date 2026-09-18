@@ -110,6 +110,25 @@ For browser verification, build first, then run `node backend/tests/preview.js` 
 
 ## Deployment
 
+### Vercel
+
+Import [this repository into Vercel](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Faadarshkumar-rai5%2Fcartnova), keeping the project root at the repository root (not `frontend`). The included `vercel.json` builds Vite, serves static assets, routes `/api/*` to the Express function, and supports React Router page refreshes.
+
+Before deploying, set these **Production** environment variables in Vercel:
+
+- `MONGO_URI`: your persistent MongoDB Atlas connection string, including the database name.
+- `JWT_SECRET`: a random secret of at least 32 characters.
+- `CLIENT_URL`: the exact production HTTPS origin, such as `https://your-project.vercel.app`, without a trailing slash.
+- `NODE_ENV`: `production`.
+
+Use Node.js 22 or 24. If the production domain changes, update `CLIENT_URL` and redeploy. The origin restriction intentionally does not authorize arbitrary Vercel preview domains. Configure preview-specific values if testing a preview deployment.
+
+Allow Atlas network access from the deployment, then run the existing seed and admin scripts against that database from a trusted local environment. Neither credentials nor a database are bundled into the deployment. The local disposable MongoDB preview cannot be used as a production database.
+
+Verify `/api/health`, registration, checkout and order history after deployment. The function reuses MongoDB connections across warm requests and returns a friendly 503 if its database or signing secret is unavailable. See [Vercel's Node.js function documentation](https://vercel.com/docs/functions/runtimes/node-js).
+
+### Render (alternative)
+
 The included `render.yaml` deploys one Node web service that serves both the Express API and the built Vite app. This simplifies cookies and avoids cross-domain authentication.
 
 1. Push the repository to your GitHub account.

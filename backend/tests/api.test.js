@@ -8,6 +8,7 @@ import app from '../app.js';
 import User from '../models/User.js';
 import Product from '../models/Product.js';
 import Order from '../models/Order.js';
+import vercelHandler from '../../api/index.mjs';
 let mongo, shopper, other, admin, product, order;
 const shippingAddress = {
   fullName: 'Test Shopper',
@@ -49,6 +50,25 @@ after(async () => {
   await mongoose.disconnect();
   await mongo?.stop();
 });
+test('Vercel entrypoint serves API routes and fails safely when unconfigured', async () => {
+  await request(vercelHandler).get('/api/health').expect(200);
+  await request(vercelHandler).get('/api/products').expect(200);
+  await request(vercelHandler).get('/api/orders/my').expect(401);
+  const secret = process.env.JWT_SECRET;
+  delete process.env.JWT_SECRET;
+  const response = {
+    status(code) { this.statusCode = code; return this; },
+    json(body) { this.body = body; return this; },
+  };
+  try {
+    await vercelHandler({}, response);
+    assert.equal(response.statusCode, 503);
+    assert.equal(response.body.message, 'The store is not configured yet.');
+  } finally {
+    process.env.JWT_SECRET = secret;
+  }
+});
+
 test('registration hashes passwords, uses HttpOnly cookies, and ignores supplied admin role', async () => {
   const response = await shopper
     .post('/api/auth/register')

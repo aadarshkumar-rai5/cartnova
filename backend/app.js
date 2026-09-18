@@ -45,7 +45,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api', (req, res) => res.status(404).json({ message: 'API route not found.' }));
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production' && !process.env.VERCEL) {
   const dist = fileURLToPath(new URL('../frontend/dist/', import.meta.url));
   app.use(express.static(dist));
   app.get('/{*path}', (req, res) => res.sendFile(path.join(dist, 'index.html')));
