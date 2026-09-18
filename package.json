@@ -1,0 +1,14 @@
+{
+  "name": "cartnova",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "npm --prefix frontend run build",
+    "start": "npm --prefix backend start",
+    "test": "npm --prefix backend test",
+    "install:all": "npm --prefix backend install && npm --prefix frontend install"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
